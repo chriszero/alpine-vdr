@@ -1,4 +1,4 @@
-# Contributor: <zerov83@gmailcom>
+# Contributor: <zerov83@gmail.com>
 # Maintainer:
 pkgname=vdr-plugin-satip
 pkgver=2.2.4
@@ -13,7 +13,6 @@ makedepends="$depends_dev"
 install=""
 subpackages="$pkgname-lang"
 source="http://www.saunalahti.fi/~rahrenbe/vdr/satip/files/vdr-satip-$pkgver.tgz
-	include-ctype-header.patch
 	musl-compat.patch"
 
 _builddir="$srcdir"/satip-$pkgver
@@ -40,11 +39,8 @@ package() {
 }
 
 md5sums="b5d343df0f0a5e7708f0460633ea866c  vdr-satip-2.2.4.tgz
-a99d9d1d2e9ed2c5bbe0c7a35626a556  include-ctype-header.patch
-543d1c7ebaa6a5281deef4b3146e9a58  musl-compat.patch"
+023734b81ea104829cd94e44aa0718c1  musl-compat.patch"
 sha256sums="9e8f5ac717bfe678d76a817efc5e3877001db0d2e52e43ebdd0cb943fc9948bc  vdr-satip-2.2.4.tgz
-f900cd6eecdeb4a59d8bdb0165a27f6aa068a5cc53f941ad7f0724a751dedf53  include-ctype-header.patch
-799789ae8fa0500dac34edc39b0c4a682e9c321d4ee2dc07fd6c0222f1d65426  musl-compat.patch"
+1612a242f652c389b553e2120dafc5f9d7b04deabd98ba40e0984eb943ac0b9b  musl-compat.patch"
 sha512sums="3455057b38ac73fdc85e193d7b894c78bec33b4c236f7373f44eb7dc4a3cf388442b2ebe9506849e1f1f2da6d5c5a91f0909760dae1088cf8fe6708aa5f8a445  vdr-satip-2.2.4.tgz
-56a6beef683248508cf571db8dc541ff09ae2a96e628ae0ecf0cb263c269a0d94eb2b0e107a331ca5e185205298b26e5a41eecfe27caca92ae4e178639165254  include-ctype-header.patch
-96a4793bb591dca8849e45a9ecdae2bc357773897561d96111cda9bf214f5360d50398e294c62b032d0267983f19263b4ffe6ea3aa1fb74fd914dfcc4d8eb1c7  musl-compat.patch"
+676ccaaa02c7c20a0bb55c764612efa4e6eab0ca5bad36fbb78dc79edd515245a77d1f867cd90048cc8606942586b31c6abd4940723c97bdab867a1ddca57aac  musl-compat.patch"
