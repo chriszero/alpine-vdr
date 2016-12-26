@@ -1,0 +1,30 @@
+# Contributor: <zerov83@gmail.com>
+# Maintainer:
+pkgname=vdr-plugin-streamdev-server
+pkgver=0.6.1
+pkgrel=674bb5b331240de3ba2a8beb63a1276003e64e3e
+pkgdesc="With the streamdev plugin you can receive live TV streams via network."
+url="https://projects.vdr-developer.org/projects/plg-streamdev"
+arch="x86_64 x86"
+license="GPL"
+depends=""
+depends_dev="vdr-dev"
+makedepends="$depends_dev"
+install=""
+#subpackages="$pkgname-lang"
+source="vdr-plugin-streamdev.tar.gz::https://projects.vdr-developer.org/git/vdr-plugin-streamdev.git/snapshot/vdr-plugin-streamdev-674bb5b331240de3ba2a8beb63a1276003e64e3e.tar.gz"
+
+_builddir="$srcdir/vdr-plugin-streamdev-$pkgrel"
+
+build() {
+	cd "$_builddir"
+	make server || return 1
+}
+
+package() {
+	cd "$_builddir"
+	make DESTDIR=$pkgdir install-server || return 1
+}
+md5sums="76d1138500ede539b2fd18b4eeff8f5c  vdr-plugin-streamdev.tar.gz"
+sha256sums="fb7765d162a7c3ebbcbfd810336c021d64fd99b690de8e8a1c8c93c83f9e6252  vdr-plugin-streamdev.tar.gz"
+sha512sums="44c96d968da6db86c13efcb4c905c364f5a63a52d20f86950b955ee75b306bc3d7d8a370d1949a7aa95fb86655b56096b6ca7139d379b18f636ec4234553a0a9  vdr-plugin-streamdev.tar.gz"
