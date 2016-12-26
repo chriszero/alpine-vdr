@@ -1,0 +1,39 @@
+# Contributor: <zerov83@gmail.com>
+# Maintainer:
+pkgname=vdr-plugin-dvbapi
+pkgver=2.2.3
+pkgrel=0
+pkgdesc="VDR dvbapi plugin for use with OSCam"
+url="https://github.com/manio/vdr-plugin-dvbapi"
+arch="x86_64 x86"
+license="GPL"
+depends=""
+depends_dev="vdr-dev"
+makedepends="$depends_dev"
+install=""
+subpackages="$pkgname-lang"
+source="vdr-plugin-dvbapi.tar.gz::https://github.com/manio/vdr-plugin-dvbapi/archive/v${pkgver}.tar.gz"
+
+_builddir="$srcdir/$pkgname-$pkgver"
+prepare() {
+	local i
+	cd "$_builddir"
+	for i in $source; do
+		case $i in
+		*.patch) msg $i; patch -p1 -i "$srcdir"/$i || return 1;;
+		esac
+	done
+}
+
+build() {
+	cd "$_builddir"
+	make || return 1
+}
+
+package() {
+	cd "$_builddir"
+	make DESTDIR=$pkgdir install || return 1
+}
+md5sums="06e757ec8b847cfc488d68165b0bed6c  vdr-plugin-dvbapi.tar.gz"
+sha256sums="71029e1be5bfd07a1a79ef6faf8414f1b1f02f76b69b879319733b37cf584a41  vdr-plugin-dvbapi.tar.gz"
+sha512sums="03950fcab7cb714990dd2611b6523d35be1c2e111b9a6bd9b9ffee8cdd56074cd5a56f771fc596d6f9e1780d9585eb69e73cd4c5994f7dc82abc1f20adea92a3  vdr-plugin-dvbapi.tar.gz"
