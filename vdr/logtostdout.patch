@@ -1,0 +1,64 @@
+--- a/tools.h
++++ b/tools.h
+@@ -31,6 +31,7 @@
+ typedef unsigned char uchar;
+ 
+ extern int SysLogLevel;
++extern bool LogToStdout;
+ 
+ #define esyslog(a...) void( (SysLogLevel > 0) ? syslog_with_tid(LOG_ERR,   a) : void() )
+ #define isyslog(a...) void( (SysLogLevel > 1) ? syslog_with_tid(LOG_INFO,  a) : void() )
+
+--- a/tools.c
++++ b/tools.c
+@@ -29,6 +29,7 @@
+ #include "thread.h"
+ 
+ int SysLogLevel = 3;
++bool LogToStdout = false;
+ 
+ #define MAXSYSLOGBUF 256
+ 
+@@ -38,7 +39,12 @@
+   char fmt[MAXSYSLOGBUF];
+   snprintf(fmt, sizeof(fmt), "[%d] %s", cThread::ThreadId(), format);
+   va_start(ap, format);
+-  vsyslog(priority, fmt, ap);
++  if (LogToStdout)
++  {
++     printf("%s %s\n", fmt, ap);
++  }
++  else
++     vsyslog(priority, fmt, ap);
+   va_end(ap);
+ }
+
+--- a/vdr.c
++++ b/vdr.c
+@@ -273,6 +273,7 @@
+       { "lib",      required_argument, NULL, 'L' },
+       { "lirc",     optional_argument, NULL, 'l' | 0x100 },
+       { "localedir",required_argument, NULL, 'l' | 0x200 },
++      { "logstdout",optional_argument, NULL, 'l' | 0x300 },
+       { "log",      required_argument, NULL, 'l' },
+       { "mute",     no_argument,       NULL, 'm' },
+       { "no-kbd",   no_argument,       NULL, 'n' | 0x100 },
+@@ -437,6 +438,9 @@
+                        return 2;
+                        }
+                     break;
++          case 'l' | 0x300:
++                      LogToStdout = true;
++                      break;
+           case 'm': MuteAudio = true;
+                     break;
+           case 'n' | 0x100:
+@@ -580,6 +584,7 @@
+                "                           2 = errors and info, 3 = errors, info and debug\n"
+                "                           if logging should be done to LOG_LOCALn instead of\n"
+                "                           LOG_USER, add '.n' to LEVEL, as in 3.7 (n=0..7)\n"
++               "            --logstdout    Log to stdout, instead to syslog\n"
+                "  -L DIR,   --lib=DIR      search for plugins in DIR (default is %s)\n"
+                "            --lirc[=PATH]  use a LIRC remote control device, attached to PATH\n"
+                "                           (default: %s)\n"
+
